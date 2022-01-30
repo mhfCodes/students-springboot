@@ -16,4 +16,4 @@
 
 <p>In This Project I've Used <b>Postgresql</b> As My Database.</p>
 
-<p>For Connecting to Database And Doing CRUD Operations With It I've Used <b>JPA</b>.</p>
+<p>Also In This Project I've Used <b>Hibernate And Spring Data JPA</b>.</p>
