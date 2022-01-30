@@ -62,5 +62,18 @@ public class StudentService {
 		
 	}
 	
+	public void deleteStudent(Long studentId) {
+		
+		// Check student with studentId exists?
+		boolean student = studentRepository.existsById(studentId);
+		if (!student) {
+			throw new IllegalStateException("Student With Id" + studentId + " Does Not Exist");
+		}
+		
+		studentRepository.deleteById(studentId);
+	}
+	
+	
+	
 	
 }
