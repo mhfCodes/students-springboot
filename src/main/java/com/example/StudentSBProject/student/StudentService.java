@@ -1,10 +1,12 @@
 package com.example.StudentSBProject.student;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class StudentService {
@@ -25,11 +27,39 @@ public class StudentService {
 		
 		Optional<Student> myStudent = studentRepository.findStudentByEmail(student.getEmail());
 		
+		// Check email is same as someone else
 		if (myStudent.isPresent()) {
 			throw new IllegalStateException("Email Taken");
 		}
 		
 		studentRepository.save(student);
+	}
+	
+	@Transactional
+	public void updateStudent(Long studentId, String email, String password) {
+		
+		// Check student exists?
+		Student student = studentRepository.findById(studentId).orElseThrow(() -> {
+			throw new IllegalStateException("Student Does Not Exist");
+		});
+		
+		// Check email exists? email is not previous email? 
+		if (email != null && email.length() > 0 && !Objects.equals(student.getEmail(), email)) {
+			
+			// Check email is same as someone else
+			Optional<Student> myStudent = studentRepository.findStudentByEmail(email);
+			if (myStudent.isPresent()) {
+				throw new IllegalStateException("Email Taken");
+			}
+			
+			student.setEmail(email);
+		} 
+		
+		// Check password exists? password is not previous password?
+		if (password != null && password.length() > 0 && !Objects.equals(student.getPassword(), password)) {
+			student.setPassword(password);
+		}
+		
 	}
 	
 	
