@@ -1,4 +1,4 @@
-package com.example.student;
+package com.example.StudentSBProject.student;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +28,12 @@ public class Student {
 	
 	public Student() {
 		
+	}
+	
+	public Student(Long id, String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
 	}
 
 	public Student(String name, String email, String password) {
